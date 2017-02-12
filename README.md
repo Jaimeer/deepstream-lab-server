@@ -1,6 +1,6 @@
 # deepstream-lab-server
 
-> A Vue.js project
+> Deepstream lab
 
 ## Build Setup
 
