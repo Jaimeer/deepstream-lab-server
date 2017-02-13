@@ -10,6 +10,7 @@ exports.init = () => {
         const chatRecord = client.record.getRecord('chat-item/' + data.id)
         chatRecord.set(data)
         chatListData.addEntry(data.id)
+        client.event.emit("chat-msg", 'Added chat[' + data + ']');
         response.send('OK');
     });
     client.rpc.provide('removeChat', function (data, response) {
@@ -18,7 +19,13 @@ exports.init = () => {
         chatRecord.whenReady(() => {
             console.log('removeChat', 'READY')
             chatRecord.delete()
+            client.event.emit("chat-msg", 'Removed chat[' + data + ']');
             response.send('OK')
         })
+    });
+    client.rpc.provide('removeEmit', function (data, response) {
+        console.log('removeEmit', data)
+        client.event.emit("chat-msg", 'Remote Emit');
+        response.send('OK')
     });
 }
